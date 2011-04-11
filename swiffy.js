@@ -35,29 +35,35 @@ $.fn.extend({
 			// lookup helper that returns the URL to the sound file specified.
 			function lookup(name) {
 				if ( !name ) return;  // if no name has been passed in assume this is an error and exit quietly.
-				var success = false;  // Boolean to see if a file has been found or not and if needed display an error log.
+				var success = false,  // Boolean to see if a file has been found or not and if needed display an error log.
+					path;  
 				
 				// cycly through the array of sounds and look for the filename given.
 				$.each( gs , function(key, val) {
 					var key  = val[0], // holds the filename.
-						path = val[1]; // holds the compiled href to this file.
+						val  = val[1]; // holds the compiled href to this file.
 						
-						if ( key == name ) { // if there is a match
+						if ( key === name ) { // if there is a match
 							log('Success, we found your file: "'+key+'"\n' +
-								'We\'re now exiting the lookup function and will be returning its stored path: '+path);
-							success = true; // boolean to only show this once regardless of the array length.
-							return path;
+								'We\'re now exiting the lookup function and will be returning its stored path: '+val);
+								
+							success = true; 	// boolean to only show this once regardless of the array length.
+							path = val;		 	// set the filepath var to the current filepath
+							return false; 		// break the loop if a match was found.
 						}
 						 
 				});
 				
-				// just in case the specified filename could not be found display an error message.
-				if ( !success ) 
-				log('You seem to be looking for: "'+name+'" which doesn\'t exist in this array.\n' +
-					'Please make sure there are no typos in the filename and that the file has been\n' +
-					'loaded into swiffy using the $.swiffy({}) setup method.\n' +
-					'If you\'re unsure of how to do so, please read the documentation or ask your friend.');
-				
+				if ( success ) {
+					// return the filepath on success
+					return path;	
+				} else {
+					// just in case the specified filename could not be found display an error message.
+					log('You seem to be looking for: "'+name+'" which doesn\'t exist in this array.\n' +
+						'Please make sure there are no typos in the filename and that the file has been\n' +
+						'loaded into swiffy using the $.swiffy({}) setup method.\n' +
+						'If you\'re unsure of how to do so, please read the documentation or ask your friend.');
+				}
 				
 			}
 			
