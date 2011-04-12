@@ -1,5 +1,3 @@
-;(function($) {
-// private function for debugging
 function log($obj) {
 	if (window.console && window.console.log) {
 		window.console.log($obj);
@@ -9,7 +7,8 @@ function getSwiffy( objName ) {
 	var isIE = navigator.appName.indexOf("Microsoft") != -1;
   	return (isIE) ? window[objName] : document[objName];
 }
-
+;(function($) {
+// private function for debugging
 var swiffy;
 // $.swiffy({}) for setup and preloading of files
 $.swiffy = function( options , callback ) {
@@ -66,10 +65,6 @@ $.swiffy = function( options , callback ) {
 		});
 		log('loading swiffyInit.')
 		
-		function swiffyReady() {
-			swiffy.swiffyInit( o.sounds , o.volume, callback );
-		}
-		
 		
 	});
 
@@ -79,7 +74,7 @@ $.swiffy = function( options , callback ) {
 var methods = {
 	message : function( message , param ) {
 		var m = message;
-		if (!m) return;
+		if (m===undefined) return;
 		if ( m == "filename missing" ) 
 		{ 
 			log('You must provide a filename.');
@@ -101,9 +96,9 @@ var methods = {
 		}
 	},
 	play : function( filename , volume ) {
-		var volume = (!volume ? volume : 1 );
+		var volume = (volume!==undefined ? volume : 1 );
 		// play function method.
-		if ( !filename ) { 
+		if ( filename===undefined ) { 
 			 // exit quietly and give a quiet error message
 			swiffy.playSound( null , volume );
 		} else {
@@ -112,25 +107,26 @@ var methods = {
 		
 	},
 	stop : function( filename ) {
-		if ( !filename ) {
+		if ( filename!==undefined ) {
 			swiffy.stopSound();
 		} else {
 			swiffy.stopSound( filename );
 		}
 	},
-	add : function( path , filename , excludeFromRandom , callback ) {
-		var excludeFromRandom = (!excludeFromRandom ? false : true );
-		var callback = (typeof callback == "string" ? callback : null );
-		
-		if (!filename && !path) {
+	add : function( filename , path , excludeFromRandom , callback ) {
+		console.log('adding file');
+		var excludeFromRandom = ( excludeFromRandom!==undefined ? false : true );
+		var callback = ( callback!==undefined && typeof callback == "string" ? callback : null );
+		console.log(filename,path);
+		if ( filename===undefined && path===undefined) {
 			methods.message('not loaded', filename);
 		} else {
 			swiffy.addSound( path , filename , excludeFromRandom , callback );
 		};
 	},
 	loop : function( filename , volume ) {
-		if ( !filename ) return;
-		if ( !volume ) { 
+		if ( filename===undefined ) return;
+		if ( volume===undefined ) { 
 			swiffy.loopSound( filename );
 		} else {
 			swiffy.loopSound( filename , volume );
@@ -141,7 +137,7 @@ var methods = {
 		swiffy.overlay( overlay );
 	},
 	volume : function( volume ) {
-		if (!volume) return;
+		if (volume===undefined) return;
 		swiffy.globalVolume( volume );
 	}
 };
@@ -171,3 +167,12 @@ $.swiffy.defaults = {
 };
 
 })(jQuery);
+function swiffyReady() {
+
+	getSwiffy('swiffy').swiffyInit( {
+		'blip'  : '../sounds/Blip.mp3',
+		'boing' : '../sounds/Boing.mp3',
+		'wap'   : '../sounds/Wap.mp3'
+	} , 1, null );
+
+}

@@ -4,7 +4,8 @@ jQuery(document).ready(function($) {
 	$.swiffy();
 	
 	$('#play').click(function() {
-		$(this).swiffy('play', 'blip');
+		swiffy('add', 'newsound','../sounds/KidsCheering.mp3');
+		$(this).swiffy('play','newsound');
 	});
 	$('#nogo').click(function() {
 		$(this).swiffy();
