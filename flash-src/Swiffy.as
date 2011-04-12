@@ -26,6 +26,12 @@ package
 			Security.allowDomain('*');
 			_t = new Timer(50);
 			
+			addEventListener(Event.ADDED_TO_STAGE , onAdded);
+		}
+		
+		private function onAdded(ev:Event):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE , onAdded);
 			if(ExternalInterface.available)
 			{
 				setCallbacks();
