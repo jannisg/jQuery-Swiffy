@@ -38,7 +38,7 @@ $.swiffy = function( options , callback ) {
 	var swf = {
 		file : ( !o.swfFile ? '/swiffy.swf' : o.swfFile ),
 		params : { 
-			'allowscriptaccess' : 'always',
+			'allowScriptAccess' : 'always',
 			'wmode' : 'transparent'
 		},
 		attributes : {
@@ -64,8 +64,13 @@ $.swiffy = function( options , callback ) {
 			'height':'1px',
 			'width' :'1px'
 		});
-	
-		swiffy.swiffyInit( o.sounds , o.volume, callback );
+		log('loading swiffyInit.')
+		
+		function swiffyReady() {
+			swiffy.swiffyInit( o.sounds , o.volume, callback );
+		}
+		
+		
 	});
 
 	
