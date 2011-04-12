@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>jQuery Swiffy — The friendly little mp3 player.</title>
+    <title>jQuery Swiffy — The friendly little sound object.</title>
     
     <link media="all" href="style.css" type="text/css" rel="stylesheet" />
 </head>
@@ -14,11 +14,13 @@
             <div class="inner">
                 <hgroup>
                     <h1>jQuery Swiffy</h1>
-                    <h2>The friendly little MP3 player.</h2>
+                    <h2>The friendly little sound object.</h2>
                 </hgroup>
                 <hr />
                 <p>
-                    <a href="#">Click here to see the original source code on GitHub.</a> · <a href="#twitteraction">Tweet about this plugin.</a> · <a href="#">Download the latest version.</a>
+                    <a href="https://github.com/jannisg/jquery-swiffy">Click here to see the original source code on GitHub, fork and join the fun.</a> · 
+                    <!-- <a href="#twitteraction">Tweet about this plugin.</a> ·  -->
+                    <a href="https://github.com/jannisg/jquery-swiffy/zipball/master">Download the latest version, zipped.</a>
                 </p>
             </div>
         </header>
@@ -27,15 +29,13 @@
             
             <h3>Demo</h3>
             
-            <p>A list of cached sounds follows.</p>
-            <ul id="cachedsounds">
-                <li>Sounds will be listed here once cached.</li>
-            </ul>
-            
             <hr />
-            
-            <a id="play">Click here to play a sound.</a>
-            <a id="nogo">Click here to fail swiffy.</a>
+            <div id="buttons">
+                <a id="play">Play a random sound once.</a>
+                <a id="loop">Loop a sound.</a>
+                <a id="play-specific">Play a cheering kids sound once.</a>
+                <a id="stop">Stop</a>
+            </div>
             
         </section>
         
@@ -43,7 +43,7 @@
     </div>
     <footer>
         <div class="inner">
-            <p>If you need help implementing this plugin on your site please feel free to contact me. The same goes for feature requests, if you have them, don't hold back.</p>
+            <p>If you need help implementing this plugin on your site please feel free to contact myself or Mark Stewart on GitHub. <br />The same goes for feature requests, if you have them, don't hold back.</p>
         </div>
     </footer>
 
