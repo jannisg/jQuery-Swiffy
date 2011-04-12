@@ -9,11 +9,11 @@ function getSwiffy( objName ) { var isIE = $.browser.msie; return (isIE) ? windo
 // a global callback function that initiates the plugin once the swf is fully loaded.
 var swiffy;
 function swiffyReady() {
-	swiffy.swiffyInit( {
+	swiffy.swiffyInit({
 		'blip'  : '../sounds/Blip.mp3',
 		'boing' : '../sounds/Boing.mp3',
 		'wap'   : '../sounds/Wap.mp3'
-	}, 1, null );
+	});
 }
 // =====================
 // = START PLUGIN CODE =
