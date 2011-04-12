@@ -65,6 +65,7 @@ package
 			ExternalInterface.addCallback('volume',volume);
 			
 			ExternalInterface.call('swiffyReady');
+			ExternalInterface.call('console.log','SWIFFY :: Calling <swiffyReady>');
 		}
 		
 		
