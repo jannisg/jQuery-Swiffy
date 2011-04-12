@@ -4,11 +4,11 @@ jQuery(document).ready(function($) {
 	$.swiffy();
 	
 	$('#play').click(function() {
-		swiffy('add', 'newsound','../sounds/KidsCheering.mp3');
-		$(this).swiffy('play','newsound');
+		$(this).swiffy('add', 'newsound','../sounds/KidsCheering.mp3');
+		$(this).swiffy('loop','newsound');
 	});
 	$('#nogo').click(function() {
-		$(this).swiffy();
+		$(this).swiffy('stop');
 	});
 	
 });

@@ -114,14 +114,14 @@ var methods = {
 		}
 	},
 	add : function( filename , path , excludeFromRandom , callback ) {
-		console.log('adding file');
+
 		var excludeFromRandom = ( excludeFromRandom!==undefined ? false : true );
 		var callback = ( callback!==undefined && typeof callback == "string" ? callback : null );
-		console.log(filename,path);
+		
 		if ( filename===undefined && path===undefined) {
 			methods.message('not loaded', filename);
 		} else {
-			swiffy.addSound( path , filename , excludeFromRandom , callback );
+			swiffy.addSound( filename , path , excludeFromRandom , callback );
 		};
 	},
 	loop : function( filename , volume ) {
