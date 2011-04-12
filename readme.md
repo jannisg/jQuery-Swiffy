@@ -5,7 +5,7 @@ To use please read the description below which should explain most of swiffy's f
 
 Any feature requests are welcome and we'd appreciate it if you took the time to create an 'issue' for any problems you may encounter.
 
-***
+* * *
 
 ### Functions
 
@@ -43,26 +43,26 @@ Any feature requests are welcome and we'd appreciate it if you took the time to 
     				As usual volume is a floating point number between 0 and 1.
     				This can be used to switch the global playback volume to a new value on the fly.
 
-***
+* * *
 
 #### Credits
 
 *This little bundle of joy was created by Mark Stewart and myself, Jannis Gundermann.*
 
-***
+* * *
 
 ##### Todo's
 
 * create a more logical way of setting up actions $(object).swiffy('method', params) should just be $.swiffy('method', params);
 * create a proper init method and call it in swiffyReady()
 
-***
+* * *
 
 ##### Fixes
 
 * @stop doesn't currently stop overlaying sounds and loops.
 * init is currently not working properly!
 
-***
+* * *
 
 **As a final little note: Please be aware that as long as this line of text exists this project is not production ready!**
