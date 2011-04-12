@@ -47,20 +47,20 @@ Any feature requests are welcome and we'd appreciate it if you took the time to 
 
 #### Credits
 
-*This little bundle of joy was created by Mark Stewart and myself, Jannis Gundermann.*
+*This little bundle of joy was created by Mark Stewart (@markstewie) and myself, Jannis Gundermann (@jannisg).*
 
 * * *
 
 ##### Todo's
 
-* create a more logical way of setting up actions $(object).swiffy('method', params) should just be $.swiffy('method', params);
-* create a proper init method and call it in swiffyReady()
+* create a more logical way of setting up actions `$(object).swiffy('method', params);` should just really just be `$.swiffy('method', params);`
+* create a proper init method and call it in `swiffyReady()`
 
 * * *
 
 ##### Fixes
 
-* @stop doesn't currently stop overlaying sounds and loops.
+* @stop doesn't currently stop multiple overlaying sounds loops.
 * init is currently not working properly!
 
 * * *
