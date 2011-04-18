@@ -1,11 +1,44 @@
 // =================
 // = jQuery swiffy =
 // =================
+// Helpers.
+// a log function that won't break browsers if left in.
+function log( whatever ) { if (window.console && window.console.log) { window.console.log($obj); } }
+// a global function to successfully target the swf object we create (thank you Internet Explorer).
+function getSwiffy( objName ) { var isIE = $.browser.msie; return (isIE) ? window[objName] : document[objName]; }
+// start jQuery code.
 (function($){
+  // a function to check on a given element to be undefined or not.
+  var types = {
+    'function' : function( arg ) { console.log(arg,'this is running the "function" function'); }
+   ,'boolean'  : function( arg ) { console.log(arg,'this is running the "boolean" function'); }
+   ,'number'   : function( arg ) { console.log(arg,'this is running the "number" function'); }
+   ,'string'   : function( arg ) { console.log(arg,'this is running the "string" function'); }
+   ,'object'   : function( arg ) { console.log(arg,'this is running the "object" function'); }
+  };
+  function valid(args) {
+    if ( !args ) { 
+       return false;
+    }
+    
+    var state = true;
+
+    $.each(args, function(i,arg) {
+      var type = typeof arg;
+      types[type](arg);
+    });
+
+    // return state;
+  }
+  
+  
+  
   // A global set of functions to interact with swiffy.swf
 	window.swiffy = {
 	   init     :  function( options ) {
        // called when page is being loaded to initialize the plugin itself.
+       console.log(valid(arguments));
+       // if (! valid(arguments) ) return;
     }
 		,ready    :  function( event ) {
       // called by the swiffy.swf once the clip has fully loaded and is ready to accept commands and function calls
