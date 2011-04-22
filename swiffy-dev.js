@@ -4,7 +4,7 @@
 // start jQuery code.
 (function($){
   // Helpers.
-  var regex = {
+  var regex = {afaf
     fnName : /^function\s+\(\s([\w]*)/i
   }
   // a log function that won't break browsers if left in.
