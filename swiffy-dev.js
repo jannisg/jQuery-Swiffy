@@ -8,41 +8,56 @@
     fnName : /^function\s+\(\s([\w]*)/i
   }
   // a log function that won't break browsers if left in.
-  window.log = function( whatever ) { 
-    if (window.console && window.console.log) { window.console.log( whatever ); } }
+  window.log = function( whatever ) { if (window.console && window.console.log) { window.console.log( whatever ); } }
   // a global function to successfully target the swf object we create (thank you Internet Explorer).
   window.getObject = function( objName ) { var isIE = $.browser.msie; return (isIE) ? window[objName] : document[objName]; }
 
   // a function to check on a given element to be undefined or not.
-  function paramCheck( obj ) {
+  function argh( obj ) {
 
-    var callee = arguments.callee.name;
-    var caller = arguments.callee.caller.name;
-    var passed = true;
+    var callee = arguments.callee.name
+       ,caller = arguments.callee.caller.name
+       ,passed = true
+       ;
 
     if ( typeof obj === 'object' ) { 
       // in case we're looping over multiple tests on arguments.
-      $.each(obj, function(key, val) {
+      $.each(obj, function(key, object) {
+          
+          var o = object
+             ,argument = key
+             ,type = typeof o.argument
+             ,expected = o.expected
+             ,required = ( o.required ? o.required : false)
+             ,message = ( o.message !== undefined ? true : false )
+             ;
+              
+          if ( type === "undefined" && required ) {
+            
+            if ( o.message ) { 
+              log( o.message );// user defined
+            } else {
+              log('"'+argument+'" cannot be left empty.');// generic
+            }
+            passed = false;
+            
+          } else if ( type !== "undefined" && type !== expected ) {
+            
+            if ( o.message ) { 
+              log( o.message );// user defined
+            } else {
+              log( '"'+caller+'()" triggered an exception: "'+argument+'" is expecting a "'+expected+'" but has been assigned a "'+type+'".');// generic
+            }
+            passed = false;
+
+          }
         
-        var arg = key,
-            type = typeof val.is,
-            expected = val.expected,
-            required = ( val.required ? val.required : false);
-
-        if ( type === "undefined" && required ) {
-          log('"'+arg+'" cannot be left empty.');
-          passed = false;
-        } else if ( type !== "undefined" && type !== expected ) { 
-          log( '"'+caller+'()" triggered an exception: "'+arg+'" is expecting a "'+expected+'" but has been assigned a "'+type+'".');
-          passed = false;
-        }
-
       });
       
       return passed;
-
+    
     } else {
-      // when we're just checking a singular argument.
+      // hey, we need an object!
       log(callee+'() needs to be passed an object!');
     }
     
@@ -52,18 +67,18 @@
 	window.swiffy = {
 	   init     :  function init( filename , count ) {
        // called when page is being loaded to initialize the plugin itself.
-       if ( !paramCheck({ // let's make sure the arguments supplied satisfy our needs.
+       if ( !argh({ // let's make sure the arguments supplied satisfy our needs.
          
          filename : {
-           required : true,
-           is : filename,
-           expected : 'string'
-         },
-         
-         count : {
-           required : true,
-           is : count,
-           expected : 'number'
+           argument : filename
+          ,expected : 'string'
+          ,required : true
+          ,message  : 'An optional message to be posted instead of the generic one.'
+         }
+        ,count : {
+           argument : count
+          ,expected : 'number'
+          ,required : true
          }
          
        }) ) {
