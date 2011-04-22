@@ -4,21 +4,34 @@
 // start jQuery code.
 (function($){
   // Helpers.
-  var regex = {afaf
+  var regex = {
     fnName : /^function\s+\(\s([\w]*)/i
   }
   // a log function that won't break browsers if left in.
-  window.log = function( whatever ) { if (window.console && window.console.log) { window.console.log( whatever ); } }
+  window.log = function() {
+    if ( window.console && window.console.log ) { 
+      window.console.log.apply( console , arguments );
+    } 
+  }
   // a global function to successfully target the swf object we create (thank you Internet Explorer).
   window.getObject = function( objName ) { var isIE = $.browser.msie; return (isIE) ? window[objName] : document[objName]; }
 
   // a function to check on a given element to be undefined or not.
-  function argh( obj ) {
-
+  window.argh = function( obj ) {
     var callee = arguments.callee.name
        ,caller = arguments.callee.caller.name
        ,passed = true
        ;
+
+    function getArguments() {
+      var arguments = arguments.callee.caller.caller.arguments; // get the original callers arguments
+      var output = [];
+      for (var i=0; i < arguments.length; i++) {
+        output.push(arguments[i]);
+      };
+      return output;
+    }
+    
 
     if ( typeof obj === 'object' ) { 
       // in case we're looping over multiple tests on arguments.
@@ -35,30 +48,35 @@
           if ( type === "undefined" && required ) {
             
             if ( o.message ) { 
-              log( o.message );// user defined
+              log( 'Argh! ::' , caller + '(' , o.argument , ') ==>' ,  o.message );// user defined
             } else {
-              log('"'+argument+'" cannot be left empty.');// generic
+              log( 'Argh! ::' , caller + '() ==> One or more required arguments were left empty.');// generic
             }
             passed = false;
             
           } else if ( type !== "undefined" && type !== expected ) {
             
             if ( o.message ) { 
-              log( o.message );// user defined
+              log( 'Argh! ::' , caller + '(' , o.argument , ') ==>' , o.message );// user defined
             } else {
-              log( '"'+caller+'()" triggered an exception: "'+argument+'" is expecting a "'+expected+'" but has been assigned a "'+type+'".');// generic
+              log( 'Argh! ::' , caller + '(' , o.argument , ') ==>' , ' triggered an exception: This is a "' , type , '" but should be a "' , expected , '"!');// generic
             }
             passed = false;
 
           }
         
       });
+      if ( !passed ) {
+        log(  '\nArgh! :: ' + caller + '() failed to meet all criteria.\n\n' + 
+              '1. Please check that your function arguments', getArguments() ,'are in the correct order.\n'+
+              '2. Please also check your console log for more specific error messages.\n ');
+      }
       
       return passed;
     
     } else {
       // hey, we need an object!
-      log(callee+'() needs to be passed an object!');
+      log( 'Argh! :: ' + caller + '( ' + getArguments() + ' ) ==> We need an array of objects and not this!');
     }
     
   }
@@ -67,23 +85,22 @@
 	window.swiffy = {
 	   init     :  function init( filename , count ) {
        // called when page is being loaded to initialize the plugin itself.
-       if ( !argh({ // let's make sure the arguments supplied satisfy our needs.
-         
-         filename : {
-           argument : filename
-          ,expected : 'string'
-          ,required : true
-          ,message  : 'An optional message to be posted instead of the generic one.'
-         }
-        ,count : {
-           argument : count
-          ,expected : 'number'
-          ,required : true
-         }
-         
-       }) ) {
+       
+       var arghrules =  [{ 
+                            argument : filename
+                           ,expected : 'string'
+                           ,required : true
+                           ,message  : 'A filename needs to be supplied in string format.'
+                         }
+                         ,{
+                            argument : count
+                           ,expected : 'number'
+                        }];
+       
+       // let's make sure the arguments supplied satisfy our needs.
+       if ( !argh( arghrules ) ) 
+       {
          // in case they didn't, run this and stop the init.
-         log('init() failed, please see your log for details.');
          return false;
        }
 
