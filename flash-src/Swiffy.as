@@ -210,7 +210,7 @@ package
 				for each(var sound in _soundDictionary)
 				{
 					
-					sound.channel.stop();
+					snd.channel.stop();
 				}
 			}
 		}
