@@ -4,9 +4,9 @@ jQuery(document).ready(function($) {
   $.swiffy({
    swfFile : '../swiffy.swf',
    sounds : {
-     'blip'  : '../sounds/Blip.mp3',
-     'boing' : '../sounds/Boing.mp3',
-     'wap'   : '../sounds/Wap.mp3'
+	 'blip'	 : '../sounds/Blip.mp3',
+	 'boing' : '../sounds/Boing.mp3',
+	 'wap'	 : '../sounds/Wap.mp3'
    }
   });
 
@@ -19,15 +19,17 @@ jQuery(document).ready(function($) {
   $('#stop').click(function() {
    swiffy.stop();
   });
+
   $('#loop').click(function() {
    swiffy.loop( 'boing' );
   });
+
   $('#play').click(function() {
    swiffy.play();
   });
 
-	swiffy.ready(function(){
-		swiffy.play();
-	})
+  swiffy.ready(function(){
+	swiffy.play();
+  })
 	
 });

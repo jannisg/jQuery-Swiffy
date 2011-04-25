@@ -70,10 +70,13 @@
 		,setup : function(){
 			swiffy.player.swiffyInit( swiffy.ignite );
 		}
-		
+		,readyFunction :null
+		,ready : function(fn){
+			swiffy.readyFunction = fn;
+		}
 		// called by the swiffy.swf once the clip has fully loaded and is ready to accept commands and function calls
-		,ready		:	 function ready( fn ) {
-			
+		,loaded		:	 function( ) {
+			if(swiffy.readyFunction) swiffy.readyFunction();
 		}
 		// plays a specific or random song from the collection
 		,play			:	 function play( filename , volume ) {

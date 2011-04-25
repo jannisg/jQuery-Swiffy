@@ -251,7 +251,7 @@ package
 			}
 			if(allLoaded && !_init) 
 			{
-				ExternalInterface.call('swiffy.ready');
+				ExternalInterface.call('swiffy.loaded');
 				_init = true;
 			}
 			if(allLoaded && _loadCallback)
