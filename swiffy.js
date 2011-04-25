@@ -66,17 +66,20 @@
 		// will hold the container during setup then after that the player swiffy.swf object
 		player : null
 		// hold the object the user is trying to initialize
-	    ,ignite : {}
+    ,ignite : {}
+    // called by the flash file once initialized, sets up the user defined sounds
 		,setup : function(){
 			swiffy.player.swiffyInit( swiffy.ignite );
-		}
-		,readyFunction :null
-		,ready : function(fn){
-			swiffy.readyFunction = fn;
 		}
 		// called by the swiffy.swf once the clip has fully loaded and is ready to accept commands and function calls
 		,loaded		:	 function( ) {
 			if(swiffy.readyFunction) swiffy.readyFunction();
+		}
+    // stores the user defined onReady function (fires once when the flash file is finished loading the initially passed in sound object)
+		,readyFunction :null
+    // being called once flash is fully setup
+		,ready : function(fn){
+			swiffy.readyFunction = fn;
 		}
 		// plays a specific or random song from the collection
 		,play			:	 function play( filename , volume ) {
@@ -131,7 +134,7 @@
 	// ==============
 	// = Initilizer =
 	// ==============
-	$.swiffy = function( options , callback ){
+	$.swiffy = function( options ){
 		var options = $.extend({}, $.swiffy.defaults, options)
 			 ,o = options
 				// check that the passed in callback actually is a function then make it a string for the flash to work with.
@@ -195,9 +198,7 @@
 		overlay: false,
 		// REQUIRED: Unless manually adding your sound files use this to (pre)load your sound clips after DOM.load event is fired.
 		// key == alias : value == path/to/soundfile.mp3
-		sounds : {},
-		// optional callback function that fires once swiffy has fully loaded.
-		callback : function() {}
+		sounds : {}
 	}
 
 })(jQuery);

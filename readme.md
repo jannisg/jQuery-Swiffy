@@ -1,5 +1,5 @@
 # jQuery Swiffy
-## A tiny little object of fun and sounds.
+## A tiny little object of sounds and fun.
 
 To use please read the description below which should explain most of swiffy's functions.
 
@@ -21,7 +21,7 @@ Any feature requests are welcome and we'd appreciate it if you took the time to 
     				
     @stop   >> 	swiffy.stop();
     				will stop all sounds currently playing.
-    @stop   >> 	$(obj).swiffy( 'stop' , 'alias' );
+    @stop   >> 	swiffy.stop( 'alias' );
     				will stop this specific sound only
     				
     @load   >> 	swiffy.load( 'alias' , 'filepath' );
@@ -53,13 +53,9 @@ Any feature requests are welcome and we'd appreciate it if you took the time to 
 
 ##### Todo's
 
-* rework the flash file swiffy.swf to call swiffy.init instead of swiffyReady() as 'ready' callback.
-
-* * *
-
-##### Fixes
-
-* @stop doesn't currently stop multiple overlaying sounds loops. (Identified error, to be fixed asap)
+* write better documentation
+* integrate Argh! messaging framework
+* cleanup file a little bit more
 
 * * *
 
