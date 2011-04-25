@@ -25,5 +25,9 @@ jQuery(document).ready(function($) {
   $('#play').click(function() {
    swiffy.play();
   });
+
+	swiffy.ready(function(){
+		swiffy.play();
+	})
 	
 });

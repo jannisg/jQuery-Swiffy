@@ -16,10 +16,11 @@ package
 	{
 		private var _overlay:Boolean = true;
 		private var _volume:Number = 1;
-		private var _loadCallback:String;
 		private var _soundDictionary:Dictionary = new Dictionary(true);
 		private var _randomSounds:Array = [];
 		private var _t:Timer;
+		private var _loadCallback:String;
+		private var _init:Boolean = false;
 		
 		public function Swiffy()
 		{
@@ -64,11 +65,8 @@ package
 			ExternalInterface.addCallback('overlay',overlay);
 			ExternalInterface.addCallback('volume',volume);
 			
-			ExternalInterface.call('swiffyReady');
-			ExternalInterface.call('console.log','SWIFFY :: Calling <swiffyReady>');
+			ExternalInterface.call('swiffy.setup');
 		}
-		
-		
 		
 		// public methods
 		/**
@@ -77,16 +75,14 @@ package
 		 * 
 		 * @param	sounds				An object containing {key,file} pairs
 		 * @param	volume				the global volume
-		 * @param	callback			The function name to call once all these sounds have loaded
 		 */ 
-		public function swiffyInit( sounds:Object , volume:Number =1, callback:String = null ):void
+		public function swiffyInit( sounds:Object , volume:Number =1 ):void
 		{	
 			_volume = volume;
 			for(var key in sounds)
 			{
 				this.addSound( key, sounds[key] );
 			}
-			_loadCallback = callback;
 			
 		}
 		
@@ -210,7 +206,7 @@ package
 				for each(var sound in _soundDictionary)
 				{
 					
-					snd.channel.stop();
+					sound.channel.stop();
 				}
 			}
 		}
@@ -252,6 +248,11 @@ package
 				}
 				
 				if(!sound.loaded) allLoaded = false;
+			}
+			if(allLoaded && !_init) 
+			{
+				ExternalInterface.call('swiffy.ready');
+				_init = true;
 			}
 			if(allLoaded && _loadCallback)
 			{

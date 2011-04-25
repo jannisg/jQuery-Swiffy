@@ -17,9 +17,7 @@
 	}
 	// a function to successfully target the swf object we create (thank you Internet Explorer).
 	function getSwiffy( objName ) { var isIE = $.browser.msie; return (isIE) ? window[objName] : document[objName]; }
-	window.swiffyReady = function() {
-		swiffy.init( swiffy.ignite );
-	}
+	
 	
 	// ====================================
 	// = BEGIN THE PUBLIC SWIFFY FUNCTION =
@@ -68,13 +66,14 @@
 		// will hold the container during setup then after that the player swiffy.swf object
 		player : null
 		// hold the object the user is trying to initialize
-	  ,ignite : {}
-		// called when page is being loaded to initialize the plugin itself.
-		,init : function init( sounds ) {
-			swiffy.player.swiffyInit( sounds );
+	    ,ignite : {}
+		,setup : function(){
+			swiffy.player.swiffyInit( swiffy.ignite );
 		}
+		
 		// called by the swiffy.swf once the clip has fully loaded and is ready to accept commands and function calls
 		,ready		:	 function ready( fn ) {
+			
 		}
 		// plays a specific or random song from the collection
 		,play			:	 function play( filename , volume ) {
