@@ -16,7 +16,7 @@
 		}
 	}
 	// a function to successfully target the swf object we create (thank you Internet Explorer).
-	function getSwiffy( objName ) { var isIE = $.browser.msie; return (isIE) ? window[objName] : document[objName]; }
+  function getSwiffy(objName) { return $('#swiffy')[0]; }
 	
 	
 	// ====================================
