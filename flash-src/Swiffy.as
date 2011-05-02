@@ -26,7 +26,6 @@ package
 		{
 			Security.allowDomain('*');
 			_t = new Timer(50);
-			
 			addEventListener(Event.ADDED_TO_STAGE , onAdded);
 		}
 		
@@ -78,6 +77,7 @@ package
 		 */ 
 		public function swiffyInit( sounds:Object , volume:Number =1 ):void
 		{	
+			
 			_volume = volume;
 			for(var key in sounds)
 			{
