@@ -16,7 +16,12 @@
 		}
 	}
 	// a function to successfully target the swf object we create (thank you Internet Explorer).
-  function getSwiffy(objName) { return $('#swiffy')[0]; }
+  function getSwiffy(objName) {
+      var isIE = $.browser.msie;
+      //console.log($('#swiffy')[0]);
+      return (isIE) ? window[objName] : document[objName];
+      // return $('#swiffy')[0];
+  }
 	
 	
 	// ====================================
@@ -66,7 +71,7 @@
 		// will hold the container during setup then after that the player swiffy.swf object
 		player : null
 		// hold the object the user is trying to initialize
-    ,ignite : {}
+    	,ignite : {}
     // called by the flash file once initialized, sets up the user defined sounds
 		,setup : function(){
 			swiffy.player.swiffyInit( swiffy.ignite );
@@ -86,6 +91,10 @@
 			var volume = (volume!==undefined ? volume : 1 );
 			// play function method.
 			if ( filename===undefined ) { 
+				// for (var i in swiffy['player'])
+				// 				{
+				// 					console.log(i , ' --- ', swiffy.player[i])
+				// 				}
 				swiffy.player.playSound( null , volume );
 			} else {
 				swiffy.player.playSound( filename , volume );
@@ -170,7 +179,7 @@
 		// when the dom is loaded…
 		$(window).load(function() {
 			// reassign swiffy to reference the flash object (dom element, not jquery object) and NOT its container.
-			swiffy.player = getSwiffy( 'swiffy' );
+			swiffy.player = getSwiffy( 'swiffyswf' );
 			// apply styles to swiffy effectively hiding it from view.
 			$(swiffy.player).css({
 				'position'	: 'absolute'
@@ -189,7 +198,7 @@
 	// =============================
 	$.swiffy.defaults = {
 		// the id of the container and later the flash clip itself. Unless you have another object called swiffy this doesn't need to change.
-		target : 'swiffy',
+		target : 'swiffyswf',
 		// REQUIRED: path to the swiffy.swf file. defaults to root folder.
 		swfFile: '/swiffy.swf',
 		// volume setting for the global stage, defaults to 1, can accept floating point value from 0 to 1.
