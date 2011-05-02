@@ -18,9 +18,7 @@
 	// a function to successfully target the swf object we create (thank you Internet Explorer).
   function getSwiffy(objName) {
       var isIE = $.browser.msie;
-      //console.log($('#swiffy')[0]);
       return (isIE) ? window[objName] : document[objName];
-      // return $('#swiffy')[0];
   }
 	
 	
@@ -74,6 +72,20 @@
     	,ignite : {}
     // called by the flash file once initialized, sets up the user defined sounds
 		,setup : function(){
+      // the moment the flash is ready to accept commands this fires:
+      // reassign swiffy to reference the flash object (dom element, not jquery object) and NOT its container.
+			swiffy.player = getSwiffy( 'swiffyswf' );
+			// apply styles to swiffy effectively hiding it from view.
+			$(swiffy.player).css({
+				'position'	: 'absolute'
+				 ,'top'			: '-20000px'
+				 ,'left'		: '-20000px'
+				 ,'overflow'	: 'hidden'
+				 ,'visibility': 'hidden'
+				 ,'height'	: '1px'
+				 ,'width'		: '1px'
+			});
+      // then initialize
 			swiffy.player.swiffyInit( swiffy.ignite );
 		}
 		// called by the swiffy.swf once the clip has fully loaded and is ready to accept commands and function calls
@@ -91,10 +103,6 @@
 			var volume = (volume!==undefined ? volume : 1 );
 			// play function method.
 			if ( filename===undefined ) { 
-				// for (var i in swiffy['player'])
-				// 				{
-				// 					console.log(i , ' --- ', swiffy.player[i])
-				// 				}
 				swiffy.player.playSound( null , volume );
 			} else {
 				swiffy.player.playSound( filename , volume );
@@ -175,22 +183,6 @@
 		
 		// capture the preloading of sounds that were part of the $.swiffy() function and add them so we can use them in the swiffy.init function.
 		swiffy.ignite = o.sounds;
-		
-		// when the dom is loaded…
-		$(window).load(function() {
-			// reassign swiffy to reference the flash object (dom element, not jquery object) and NOT its container.
-			swiffy.player = getSwiffy( 'swiffyswf' );
-			// apply styles to swiffy effectively hiding it from view.
-			$(swiffy.player).css({
-				'position'	: 'absolute'
-				 ,'top'			: '-20000px'
-				 ,'left'		: '-20000px'
-				 ,'overflow'	: 'hidden'
-				 ,'visibility': 'hidden'
-				 ,'height'	: '1px'
-				 ,'width'		: '1px'
-			});
-		});
 	};
 
 	// =============================
